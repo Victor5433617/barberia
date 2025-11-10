@@ -61,7 +61,7 @@ const Index = () => {
                 <Star className="h-12 w-12 text-primary mb-4" />
                 <CardTitle className="text-foreground">Experiencia</CardTitle>
                 <CardDescription>
-                  Más de 15 años perfeccionando el arte de la barbería profesional
+                  Más de 5 años perfeccionando el arte de la barbería profesional
                 </CardDescription>
               </CardHeader>
             </Card>
