@@ -158,14 +158,15 @@ const ServicesManagement = () => {
   return (
     <div className="min-h-screen bg-background">
       <nav className="border-b border-border bg-card/50 backdrop-blur-sm">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <Button variant="ghost" onClick={() => navigate("/admin")}>
+        <div className="container mx-auto px-4 py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          <Button variant="ghost" onClick={() => navigate("/admin")} size="sm" className="text-xs md:text-sm">
             <ArrowLeft className="mr-2 h-4 w-4" />
-            Volver al Dashboard
+            <span className="hidden sm:inline">Volver al Dashboard</span>
+            <span className="sm:hidden">Volver</span>
           </Button>
           <Dialog open={isDialogOpen} onOpenChange={handleDialogChange}>
             <DialogTrigger asChild>
-              <Button>
+              <Button size="sm" className="w-full sm:w-auto">
                 <Plus className="mr-2 h-4 w-4" />
                 Nuevo Elemento
               </Button>
@@ -230,10 +231,10 @@ const ServicesManagement = () => {
         </div>
       </nav>
 
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-4 py-6 md:py-8">
         <Card className="bg-card border-border">
           <CardHeader>
-            <CardTitle className="text-2xl text-foreground">Gestión de Catálogo</CardTitle>
+            <CardTitle className="text-xl md:text-2xl text-foreground">Gestión de Catálogo</CardTitle>
           </CardHeader>
           <CardContent>
             {isLoading ? (
@@ -241,38 +242,43 @@ const ServicesManagement = () => {
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
               </div>
             ) : !services || services.length === 0 ? (
-              <p className="text-center text-muted-foreground py-8">No hay elementos en el catálogo</p>
+              <p className="text-center text-muted-foreground py-8 text-sm md:text-base">No hay elementos en el catálogo</p>
             ) : (
-              <div className="overflow-x-auto">
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Nombre</TableHead>
-                      <TableHead>Descripción</TableHead>
-                      <TableHead className="text-right">Acciones</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {services.map((service) => (
-                      <TableRow key={service.id}>
-                        <TableCell className="font-medium">{service.name}</TableCell>
-                        <TableCell className="max-w-xs truncate">{service.description || "-"}</TableCell>
-                        <TableCell className="text-right space-x-2">
-                          <Button size="sm" variant="outline" onClick={() => handleEdit(service)}>
-                            <Edit className="h-4 w-4" />
-                          </Button>
-                          <Button
-                            size="sm"
-                            variant="destructive"
-                            onClick={() => deleteService.mutate(service.id)}
-                          >
-                            <Trash2 className="h-4 w-4" />
-                          </Button>
-                        </TableCell>
+              <div className="overflow-x-auto -mx-4 md:mx-0">
+                <div className="inline-block min-w-full align-middle">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead className="min-w-[120px]">Nombre</TableHead>
+                        <TableHead className="min-w-[200px]">Descripción</TableHead>
+                        <TableHead className="text-right min-w-[100px]">Acciones</TableHead>
                       </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
+                    </TableHeader>
+                    <TableBody>
+                      {services.map((service) => (
+                        <TableRow key={service.id}>
+                          <TableCell className="font-medium text-sm">{service.name}</TableCell>
+                          <TableCell className="max-w-xs truncate text-sm">{service.description || "-"}</TableCell>
+                          <TableCell className="text-right">
+                            <div className="flex gap-1 md:gap-2 justify-end">
+                              <Button size="sm" variant="outline" onClick={() => handleEdit(service)} className="h-8 w-8 p-0">
+                                <Edit className="h-3 w-3 md:h-4 md:w-4" />
+                              </Button>
+                              <Button
+                                size="sm"
+                                variant="destructive"
+                                onClick={() => deleteService.mutate(service.id)}
+                                className="h-8 w-8 p-0"
+                              >
+                                <Trash2 className="h-3 w-3 md:h-4 md:w-4" />
+                              </Button>
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
               </div>
             )}
           </CardContent>

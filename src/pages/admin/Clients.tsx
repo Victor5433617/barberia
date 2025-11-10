@@ -176,32 +176,34 @@ const Clients = () => {
       <nav className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Scissors className="h-6 w-6 text-primary" />
-            <span className="text-xl font-bold text-foreground">302 Barber Admin</span>
+            <Scissors className="h-5 w-5 md:h-6 md:w-6 text-primary" />
+            <span className="text-base md:text-xl font-bold text-foreground">302 Barber Admin</span>
           </div>
-          <div className="flex gap-4">
-            <Button variant="outline" onClick={() => navigate("/admin")}>
-              Dashboard
+          <div className="flex gap-2 md:gap-4">
+            <Button variant="outline" onClick={() => navigate("/admin")} size="sm" className="text-xs md:text-sm">
+              <span className="hidden sm:inline">Dashboard</span>
+              <span className="sm:hidden">Home</span>
             </Button>
-            <Button variant="outline" onClick={handleLogout}>
-              <LogOut className="mr-2 h-4 w-4" />
-              Cerrar Sesión
+            <Button variant="outline" onClick={handleLogout} size="sm" className="text-xs md:text-sm">
+              <LogOut className="mr-0 md:mr-2 h-4 w-4" />
+              <span className="hidden sm:inline">Cerrar Sesión</span>
+              <span className="sm:hidden">Salir</span>
             </Button>
           </div>
         </div>
       </nav>
 
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-4 py-6 md:py-8">
         <Card className="bg-card border-border">
           <CardHeader>
-            <div className="flex items-center justify-between">
-              <CardTitle className="text-foreground">Gestión de Clientes</CardTitle>
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+              <CardTitle className="text-xl md:text-2xl text-foreground">Gestión de Clientes</CardTitle>
               <Dialog open={isDialogOpen} onOpenChange={(open) => {
                 setIsDialogOpen(open);
                 if (!open) resetForm();
               }}>
                 <DialogTrigger asChild>
-                  <Button>
+                  <Button size="sm" className="w-full sm:w-auto">
                     <UserPlus className="mr-2 h-4 w-4" />
                     Agregar Cliente
                   </Button>
@@ -291,47 +293,53 @@ const Clients = () => {
             {isLoading ? (
               <p className="text-center text-muted-foreground py-8">Cargando clientes...</p>
             ) : filteredClients && filteredClients.length > 0 ? (
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Nombre</TableHead>
-                    <TableHead>Cédula / RUC</TableHead>
-                    <TableHead>Teléfono</TableHead>
-                    <TableHead className="text-right">Acciones</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {filteredClients.map((client) => (
-                    <TableRow key={client.id}>
-                      <TableCell className="font-medium">{client.name}</TableCell>
-                      <TableCell>{client.id_number}</TableCell>
-                      <TableCell>{client.phone}</TableCell>
-                      <TableCell className="text-right">
-                        <div className="flex gap-2 justify-end">
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => handleEdit(client)}
-                          >
-                            <Pencil className="h-4 w-4" />
-                          </Button>
-                          <Button
-                            variant="destructive"
-                            size="sm"
-                            onClick={() => {
-                              if (confirm("¿Estás seguro de eliminar este cliente?")) {
-                                deleteClient.mutate(client.id);
-                              }
-                            }}
-                          >
-                            <Trash2 className="h-4 w-4" />
-                          </Button>
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+              <div className="overflow-x-auto -mx-4 md:mx-0">
+                <div className="inline-block min-w-full align-middle">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead className="min-w-[140px]">Nombre</TableHead>
+                        <TableHead className="min-w-[120px]">Cédula / RUC</TableHead>
+                        <TableHead className="min-w-[100px]">Teléfono</TableHead>
+                        <TableHead className="text-right min-w-[100px]">Acciones</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {filteredClients.map((client) => (
+                        <TableRow key={client.id}>
+                          <TableCell className="font-medium text-sm">{client.name}</TableCell>
+                          <TableCell className="text-sm">{client.id_number}</TableCell>
+                          <TableCell className="text-sm">{client.phone}</TableCell>
+                          <TableCell className="text-right">
+                            <div className="flex gap-1 md:gap-2 justify-end">
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => handleEdit(client)}
+                                className="h-8 w-8 p-0"
+                              >
+                                <Pencil className="h-3 w-3 md:h-4 md:w-4" />
+                              </Button>
+                              <Button
+                                variant="destructive"
+                                size="sm"
+                                onClick={() => {
+                                  if (confirm("¿Estás seguro de eliminar este cliente?")) {
+                                    deleteClient.mutate(client.id);
+                                  }
+                                }}
+                                className="h-8 w-8 p-0"
+                              >
+                                <Trash2 className="h-3 w-3 md:h-4 md:w-4" />
+                              </Button>
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
+              </div>
             ) : (
               <p className="text-center text-muted-foreground py-8">
                 {searchTerm ? "No se encontraron clientes" : "No hay clientes registrados"}

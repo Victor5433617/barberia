@@ -64,20 +64,21 @@ const Dashboard = () => {
       <nav className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Scissors className="h-6 w-6 text-primary" />
-            <span className="text-xl font-bold text-foreground">302 Barber Admin</span>
+            <Scissors className="h-5 w-5 md:h-6 md:w-6 text-primary" />
+            <span className="text-base md:text-xl font-bold text-foreground">302 Barber Admin</span>
           </div>
-          <Button variant="outline" onClick={handleLogout}>
-            <LogOut className="mr-2 h-4 w-4" />
-            Cerrar Sesión
+          <Button variant="outline" onClick={handleLogout} size="sm" className="text-xs md:text-sm">
+            <LogOut className="mr-0 md:mr-2 h-4 w-4" />
+            <span className="hidden sm:inline">Cerrar Sesión</span>
+            <span className="sm:hidden">Salir</span>
           </Button>
         </div>
       </nav>
 
-      <main className="container mx-auto px-4 py-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-foreground mb-2">Dashboard</h1>
-          <p className="text-muted-foreground">Bienvenido al panel de administración</p>
+      <main className="container mx-auto px-4 py-6 md:py-8">
+        <div className="mb-6 md:mb-8">
+          <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-2">Dashboard</h1>
+          <p className="text-sm md:text-base text-muted-foreground">Bienvenido al panel de administración</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -120,41 +121,41 @@ const Dashboard = () => {
           </Card>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
           <Button
             onClick={() => navigate("/admin/reservations")}
             variant="outline"
-            className="h-24 text-lg"
+            className="h-20 md:h-24 text-base md:text-lg flex-col md:flex-row gap-2"
           >
-            <Calendar className="mr-2 h-6 w-6" />
-            Gestionar Reservas
+            <Calendar className="h-5 w-5 md:h-6 md:w-6" />
+            <span>Gestionar Reservas</span>
           </Button>
 
           <Button
             onClick={() => navigate("/admin/services")}
             variant="outline"
-            className="h-24 text-lg"
+            className="h-20 md:h-24 text-base md:text-lg flex-col md:flex-row gap-2"
           >
-            <Package className="mr-2 h-6 w-6" />
-            Gestionar Catálogo
+            <Package className="h-5 w-5 md:h-6 md:w-6" />
+            <span>Gestionar Catálogo</span>
           </Button>
 
           <Button
             onClick={() => navigate("/admin/clients")}
             variant="outline"
-            className="h-24 text-lg"
+            className="h-20 md:h-24 text-base md:text-lg flex-col md:flex-row gap-2"
           >
-            <Package className="mr-2 h-6 w-6" />
-            Gestionar Clientes
+            <Package className="h-5 w-5 md:h-6 md:w-6" />
+            <span>Gestionar Clientes</span>
           </Button>
 
           <Button
             onClick={() => navigate("/admin/work-registry")}
             variant="outline"
-            className="h-24 text-lg"
+            className="h-20 md:h-24 text-base md:text-lg flex-col md:flex-row gap-2"
           >
-            <DollarSign className="mr-2 h-6 w-6" />
-            Registro de Trabajos
+            <DollarSign className="h-5 w-5 md:h-6 md:w-6" />
+            <span>Registro de Trabajos</span>
           </Button>
         </div>
       </main>

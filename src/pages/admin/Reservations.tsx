@@ -73,17 +73,18 @@ const Reservations = () => {
     <div className="min-h-screen bg-background">
       <nav className="border-b border-border bg-card/50 backdrop-blur-sm">
         <div className="container mx-auto px-4 py-4">
-          <Button variant="ghost" onClick={() => navigate("/admin")}>
+          <Button variant="ghost" onClick={() => navigate("/admin")} size="sm" className="text-xs md:text-sm">
             <ArrowLeft className="mr-2 h-4 w-4" />
-            Volver al Dashboard
+            <span className="hidden sm:inline">Volver al Dashboard</span>
+            <span className="sm:hidden">Volver</span>
           </Button>
         </div>
       </nav>
 
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-4 py-6 md:py-8">
         <Card className="bg-card border-border">
           <CardHeader>
-            <CardTitle className="text-2xl text-foreground">Gestión de Reservas</CardTitle>
+            <CardTitle className="text-xl md:text-2xl text-foreground">Gestión de Reservas</CardTitle>
           </CardHeader>
           <CardContent>
             {isLoading ? (
@@ -91,75 +92,83 @@ const Reservations = () => {
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
               </div>
             ) : !reservations || reservations.length === 0 ? (
-              <p className="text-center text-muted-foreground py-8">No hay reservas registradas</p>
+              <p className="text-center text-muted-foreground py-8 text-sm md:text-base">No hay reservas registradas</p>
             ) : (
-              <div className="overflow-x-auto">
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Cliente</TableHead>
-                      <TableHead>Teléfono</TableHead>
-                      <TableHead>Fecha</TableHead>
-                      <TableHead>Hora</TableHead>
-                      <TableHead>Estado</TableHead>
-                      <TableHead className="text-right">Acciones</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {reservations.map((reservation) => (
-                      <TableRow key={reservation.id}>
-                        <TableCell className="font-medium">{reservation.client_name}</TableCell>
-                        <TableCell>{reservation.client_phone || "-"}</TableCell>
-                        <TableCell>
-                          {format(new Date(reservation.reservation_date), "d 'de' MMMM, yyyy", { locale: es })}
-                        </TableCell>
-                        <TableCell>{reservation.reservation_time}</TableCell>
-                        <TableCell>
-                          <Badge
-                            variant={
-                              reservation.status === "completed"
-                                ? "default"
-                                : reservation.status === "confirmed"
-                                ? "secondary"
-                                : reservation.status === "cancelled"
-                                ? "destructive"
-                                : "outline"
-                            }
-                          >
-                            {reservation.status}
-                          </Badge>
-                        </TableCell>
-                        <TableCell className="text-right space-x-2">
-                          {reservation.status === "pending" && (
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              onClick={() => updateStatus.mutate({ id: reservation.id, status: "confirmed" })}
-                            >
-                              <CheckCircle className="h-4 w-4" />
-                            </Button>
-                          )}
-                          {reservation.status !== "cancelled" && (
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              onClick={() => updateStatus.mutate({ id: reservation.id, status: "cancelled" })}
-                            >
-                              <XCircle className="h-4 w-4" />
-                            </Button>
-                          )}
-                          <Button
-                            size="sm"
-                            variant="destructive"
-                            onClick={() => deleteReservation.mutate(reservation.id)}
-                          >
-                            <Trash2 className="h-4 w-4" />
-                          </Button>
-                        </TableCell>
+              <div className="overflow-x-auto -mx-4 md:mx-0">
+                <div className="inline-block min-w-full align-middle">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead className="min-w-[120px]">Cliente</TableHead>
+                        <TableHead className="min-w-[100px]">Teléfono</TableHead>
+                        <TableHead className="min-w-[140px]">Fecha</TableHead>
+                        <TableHead className="min-w-[80px]">Hora</TableHead>
+                        <TableHead className="min-w-[100px]">Estado</TableHead>
+                        <TableHead className="text-right min-w-[140px]">Acciones</TableHead>
                       </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
+                    </TableHeader>
+                    <TableBody>
+                      {reservations.map((reservation) => (
+                        <TableRow key={reservation.id}>
+                          <TableCell className="font-medium text-sm">{reservation.client_name}</TableCell>
+                          <TableCell className="text-sm">{reservation.client_phone || "-"}</TableCell>
+                          <TableCell className="text-sm">
+                            {format(new Date(reservation.reservation_date), "d 'de' MMM, yyyy", { locale: es })}
+                          </TableCell>
+                          <TableCell className="text-sm">{reservation.reservation_time}</TableCell>
+                          <TableCell>
+                            <Badge
+                              variant={
+                                reservation.status === "completed"
+                                  ? "default"
+                                  : reservation.status === "confirmed"
+                                  ? "secondary"
+                                  : reservation.status === "cancelled"
+                                  ? "destructive"
+                                  : "outline"
+                              }
+                              className="text-xs"
+                            >
+                              {reservation.status}
+                            </Badge>
+                          </TableCell>
+                          <TableCell className="text-right">
+                            <div className="flex gap-1 md:gap-2 justify-end">
+                              {reservation.status === "pending" && (
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  onClick={() => updateStatus.mutate({ id: reservation.id, status: "confirmed" })}
+                                  className="h-8 w-8 p-0"
+                                >
+                                  <CheckCircle className="h-3 w-3 md:h-4 md:w-4" />
+                                </Button>
+                              )}
+                              {reservation.status !== "cancelled" && (
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  onClick={() => updateStatus.mutate({ id: reservation.id, status: "cancelled" })}
+                                  className="h-8 w-8 p-0"
+                                >
+                                  <XCircle className="h-3 w-3 md:h-4 md:w-4" />
+                                </Button>
+                              )}
+                              <Button
+                                size="sm"
+                                variant="destructive"
+                                onClick={() => deleteReservation.mutate(reservation.id)}
+                                className="h-8 w-8 p-0"
+                              >
+                                <Trash2 className="h-3 w-3 md:h-4 md:w-4" />
+                              </Button>
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
               </div>
             )}
           </CardContent>

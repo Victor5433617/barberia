@@ -7,9 +7,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
-import { Scissors, Clock } from "lucide-react";
+import { Clock } from "lucide-react";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
+import { MobileNav } from "@/components/MobileNav";
 import heroImage from "@/assets/hero-barbershop-real.jpg";
 
 const Booking = () => {
@@ -75,6 +76,12 @@ const Booking = () => {
 
   const bookedTimes = reservations?.map((r) => r.reservation_time.substring(0, 5)) || [];
 
+  const navLinks = [
+    { href: "/", label: "Inicio" },
+    { href: "/services", label: "Catálogo" },
+    { href: "/booking", label: "Reservas", isActive: true },
+  ];
+
   return (
     <div className="min-h-screen relative">
       <div className="absolute inset-0 bg-cover bg-center" style={{
@@ -83,30 +90,20 @@ const Booking = () => {
         <div className="absolute inset-0 bg-background/95"></div>
       </div>
       
-      <nav className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50 relative">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <a href="/" className="flex items-center gap-2">
-            <Scissors className="h-6 w-6 text-primary" />
-            <span className="text-xl font-bold text-foreground">302 Barber</span>
-          </a>
-          <div className="flex gap-6">
-            <a href="/" className="text-muted-foreground hover:text-foreground transition-colors">Inicio</a>
-            <a href="/services" className="text-muted-foreground hover:text-foreground transition-colors">Catálogo</a>
-            <a href="/booking" className="text-primary font-medium">Reservas</a>
-          </div>
-        </div>
-      </nav>
+      <div className="relative">
+        <MobileNav links={navLinks} />
+      </div>
 
-      <main className="container mx-auto px-4 py-16 relative">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+      <main className="container mx-auto px-4 py-8 md:py-16 relative">
+        <div className="text-center mb-8 md:mb-12">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-3 md:mb-4">
             Reserva tu Cita
           </h1>
-          <p className="text-xl text-muted-foreground">
+          <p className="text-lg md:text-xl text-muted-foreground">
             Selecciona fecha y horario disponible
           </p>
         </div>
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
           <Card className="bg-card border-border">
             <CardHeader>
               <CardTitle className="text-foreground">Selecciona una Fecha</CardTitle>
@@ -134,7 +131,7 @@ const Booking = () => {
             </CardHeader>
             <CardContent>
               {selectedDate ? (
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 md:gap-3">
                   {timeSlots.map((time) => {
                     const isBooked = bookedTimes.includes(time);
                     return (
@@ -143,10 +140,10 @@ const Booking = () => {
                         variant={selectedTime === time ? "default" : "outline"}
                         onClick={() => !isBooked && setSelectedTime(time)}
                         disabled={isBooked}
-                        className="h-12 flex flex-col items-center justify-center"
+                        className="h-12 flex flex-col items-center justify-center text-sm"
                       >
                         <div className="flex items-center">
-                          <Clock className="mr-2 h-4 w-4" />
+                          <Clock className="mr-1 md:mr-2 h-3 w-3 md:h-4 md:w-4" />
                           {time}
                         </div>
                         {isBooked && (
@@ -157,7 +154,7 @@ const Booking = () => {
                   })}
                 </div>
               ) : (
-                <p className="text-center text-muted-foreground py-8">
+                <p className="text-center text-muted-foreground py-8 text-sm md:text-base">
                   Selecciona una fecha para ver los horarios
                 </p>
               )}

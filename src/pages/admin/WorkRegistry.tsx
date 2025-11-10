@@ -396,23 +396,25 @@ const WorkRegistry = () => {
       <nav className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Scissors className="h-6 w-6 text-primary" />
-            <span className="text-xl font-bold text-foreground">302 Barber Admin</span>
+            <Scissors className="h-5 w-5 md:h-6 md:w-6 text-primary" />
+            <span className="text-base md:text-xl font-bold text-foreground">302 Barber Admin</span>
           </div>
-          <div className="flex gap-4">
-            <Button variant="outline" onClick={() => navigate("/admin")}>
-              Dashboard
+          <div className="flex gap-2 md:gap-4">
+            <Button variant="outline" onClick={() => navigate("/admin")} size="sm" className="text-xs md:text-sm">
+              <span className="hidden sm:inline">Dashboard</span>
+              <span className="sm:hidden">Home</span>
             </Button>
-            <Button variant="outline" onClick={handleLogout}>
-              <LogOut className="mr-2 h-4 w-4" />
-              Cerrar Sesión
+            <Button variant="outline" onClick={handleLogout} size="sm" className="text-xs md:text-sm">
+              <LogOut className="mr-0 md:mr-2 h-4 w-4" />
+              <span className="hidden sm:inline">Cerrar Sesión</span>
+              <span className="sm:hidden">Salir</span>
             </Button>
           </div>
         </div>
       </nav>
 
-      <main className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <main className="container mx-auto px-4 py-6 md:py-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mb-6 md:mb-8">
           <Card className="bg-card border-border">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-sm font-medium text-muted-foreground">
@@ -452,9 +454,9 @@ const WorkRegistry = () => {
 
         <Card className="bg-card border-border">
           <CardHeader>
-            <div className="flex items-center justify-between flex-wrap gap-4">
-              <CardTitle className="text-foreground">Registro de Trabajos</CardTitle>
-              <div className="flex gap-2 flex-wrap">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 md:gap-4">
+              <CardTitle className="text-xl md:text-2xl text-foreground">Registro de Trabajos</CardTitle>
+              <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
                 <Select value={dateFilter} onValueChange={(value: any) => {
                   setDateFilter(value);
                   if (value !== "custom") {

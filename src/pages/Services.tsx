@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Scissors } from "lucide-react";
+import { MobileNav } from "@/components/MobileNav";
 import heroImage from "@/assets/hero-barbershop-real.jpg";
 
 const Services = () => {
@@ -17,6 +18,12 @@ const Services = () => {
       return data;
     },
   });
+
+  const navLinks = [
+    { href: "/", label: "Inicio" },
+    { href: "/services", label: "Catálogo", isActive: true },
+    { href: "/booking", label: "Reservas" },
+  ];
 
   if (isLoading) {
     return (
@@ -34,26 +41,16 @@ const Services = () => {
         <div className="absolute inset-0 bg-background/95"></div>
       </div>
       
-      <nav className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50 relative">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <a href="/" className="flex items-center gap-2">
-            <Scissors className="h-6 w-6 text-primary" />
-            <span className="text-xl font-bold text-foreground">302 Barber</span>
-          </a>
-          <div className="flex gap-6">
-            <a href="/" className="text-muted-foreground hover:text-foreground transition-colors">Inicio</a>
-            <a href="/services" className="text-primary font-medium">Catálogo</a>
-            <a href="/booking" className="text-muted-foreground hover:text-foreground transition-colors">Reservas</a>
-          </div>
-        </div>
-      </nav>
+      <div className="relative">
+        <MobileNav links={navLinks} />
+      </div>
 
-      <main className="container mx-auto px-4 py-16 relative">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+      <main className="container mx-auto px-4 py-8 md:py-16 relative">
+        <div className="text-center mb-8 md:mb-12">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-3 md:mb-4">
             Nuestro Catálogo
           </h1>
-          <p className="text-xl text-muted-foreground">
+          <p className="text-lg md:text-xl text-muted-foreground">
             Cortes y servicios de primera calidad
           </p>
         </div>

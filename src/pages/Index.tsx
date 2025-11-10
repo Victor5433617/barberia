@@ -2,27 +2,23 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Scissors, Clock, Star, Calendar } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { MobileNav } from "@/components/MobileNav";
 import heroImage from "@/assets/hero-barbershop-real.jpg";
+
 const Index = () => {
   const navigate = useNavigate();
-  return <div className="min-h-screen bg-background">
-      <nav className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Scissors className="h-6 w-6 text-primary" />
-            <span className="text-xl font-bold text-foreground">302 Barber</span>
-          </div>
-          <div className="flex gap-6">
-            <a href="/" className="text-primary font-medium">Inicio</a>
-            <a href="/services" className="text-muted-foreground hover:text-foreground transition-colors">Catálogo
-          </a>
-            <a href="/booking" className="text-muted-foreground hover:text-foreground transition-colors">Reservas</a>
-            <a href="/auth" className="text-muted-foreground hover:text-foreground transition-colors">Admin</a>
-          </div>
-        </div>
-      </nav>
+  
+  const navLinks = [
+    { href: "/", label: "Inicio", isActive: true },
+    { href: "/services", label: "Catálogo" },
+    { href: "/booking", label: "Reservas" },
+    { href: "/auth", label: "Admin" },
+  ];
 
-      <section className="relative h-[600px] overflow-hidden">
+  return <div className="min-h-screen bg-background">
+      <MobileNav links={navLinks} />
+
+      <section className="relative h-[400px] md:h-[600px] overflow-hidden">
         <div className="absolute inset-0 bg-cover bg-center" style={{
         backgroundImage: `url(${heroImage})`
       }}>
@@ -30,17 +26,17 @@ const Index = () => {
         </div>
         <div className="relative container mx-auto px-4 h-full flex items-center">
           <div className="max-w-2xl">
-            <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6 animate-fade-in">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 md:mb-6 animate-fade-in">
               Estilo y Elegancia
               <span className="block text-primary">en Cada Corte</span>
             </h1>
-            <p className="text-xl text-muted-foreground mb-8 animate-fade-in">Servicio profesional de barbería .Reserva tu cita y vive la experiencia 302 Barber.</p>
-            <div className="flex gap-4 animate-fade-in">
-              <Button size="lg" onClick={() => navigate("/booking")}>
+            <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-6 md:mb-8 animate-fade-in">Servicio profesional de barbería. Reserva tu cita y vive la experiencia 302 Barber.</p>
+            <div className="flex flex-col sm:flex-row gap-3 md:gap-4 animate-fade-in">
+              <Button size="lg" onClick={() => navigate("/booking")} className="w-full sm:w-auto">
                 <Calendar className="mr-2 h-5 w-5" />
                 Reservar Cita
               </Button>
-              <Button size="lg" variant="outline" onClick={() => navigate("/services")}>
+              <Button size="lg" variant="outline" onClick={() => navigate("/services")} className="w-full sm:w-auto">
                 Ver Catálogo
               </Button>
             </div>
@@ -48,13 +44,13 @@ const Index = () => {
         </div>
       </section>
 
-      <section className="py-20 bg-card/30">
+      <section className="py-12 md:py-20 bg-card/30">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+          <div className="text-center mb-8 md:mb-12">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 md:mb-4">
               ¿Por Qué Elegirnos?
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto px-4">
               Calidad, profesionalismo y atención personalizada en cada visita
             </p>
           </div>
@@ -65,7 +61,7 @@ const Index = () => {
                 <Star className="h-12 w-12 text-primary mb-4" />
                 <CardTitle className="text-foreground">Experiencia</CardTitle>
                 <CardDescription>
-                  Más de 5 años perfeccionando el arte de la barbería profesional
+                  Más de 15 años perfeccionando el arte de la barbería profesional
                 </CardDescription>
               </CardHeader>
             </Card>
@@ -93,15 +89,15 @@ const Index = () => {
         </div>
       </section>
 
-      <section className="py-20">
+      <section className="py-12 md:py-20">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4 md:mb-6">
             Reserva Tu Próxima Cita
           </h2>
-          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+          <p className="text-base md:text-lg text-muted-foreground mb-6 md:mb-8 max-w-2xl mx-auto px-4">
             Sistema de reservas en línea disponible 24/7. Selecciona tu fecha y hora preferida.
           </p>
-          <Button size="lg" onClick={() => navigate("/booking")}>
+          <Button size="lg" onClick={() => navigate("/booking")} className="w-full sm:w-auto">
             <Calendar className="mr-2 h-5 w-5" />
             Hacer Reserva Ahora
           </Button>
