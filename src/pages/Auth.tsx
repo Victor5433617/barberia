@@ -4,7 +4,13 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { toast } from "sonner";
 import { Scissors } from "lucide-react";
 
@@ -62,7 +68,9 @@ const Auth = () => {
             {isLogin ? "Iniciar Sesión" : "Crear Cuenta"}
           </CardTitle>
           <CardDescription>
-            {isLogin ? "Accede al panel de administración" : "Registra una nueva cuenta de administrador"}
+            {isLogin
+              ? "Accede al panel de administración"
+              : "Registra una nueva cuenta de administrador"}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -103,18 +111,22 @@ const Auth = () => {
               />
             </div>
             <Button type="submit" disabled={loading} className="w-full">
-              {loading ? "Procesando..." : isLogin ? "Iniciar Sesión" : "Crear Cuenta"}
+              {loading
+                ? "Procesando..."
+                : isLogin
+                ? "Iniciar Sesión"
+                : "Crear Cuenta"}
             </Button>
           </form>
 
           <div className="mt-4 text-center">
-            <button
+            {/*<button
               type="button"
               onClick={() => setIsLogin(!isLogin)}
               className="text-sm text-primary hover:underline"
             >
               {isLogin ? "¿No tienes cuenta? Regístrate" : "¿Ya tienes cuenta? Inicia sesión"}
-            </button>
+            </button>*/}
           </div>
         </CardContent>
       </Card>
