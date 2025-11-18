@@ -8,7 +8,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import { ArrowLeft, Trash2, CheckCircle, XCircle } from "lucide-react";
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 import { es } from "date-fns/locale";
 
 const Reservations = () => {
@@ -113,7 +113,7 @@ const Reservations = () => {
                           <TableCell className="font-medium text-sm">{reservation.client_name}</TableCell>
                           <TableCell className="text-sm">{reservation.client_phone || "-"}</TableCell>
                           <TableCell className="text-sm">
-                            {format(new Date(reservation.reservation_date), "d 'de' MMM, yyyy", { locale: es })}
+                            {format(parseISO(reservation.reservation_date + 'T00:00:00'), "d 'de' MMM, yyyy", { locale: es })}
                           </TableCell>
                           <TableCell className="text-sm">{reservation.reservation_time}</TableCell>
                           <TableCell>

@@ -8,13 +8,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { Clock } from "lucide-react";
-import { format } from "date-fns";
+import { format, startOfDay } from "date-fns";
 import { es } from "date-fns/locale";
 import { MobileNav } from "@/components/MobileNav";
 import heroImage from "@/assets/hero-barbershop-real.jpg";
 
 const Booking = () => {
-  const [selectedDate, setSelectedDate] = useState<Date>();
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
   const [selectedTime, setSelectedTime] = useState<string>();
   const [clientName, setClientName] = useState("");
   const [clientPhone, setClientPhone] = useState("");
@@ -114,7 +114,7 @@ const Booking = () => {
                 mode="single"
                 selected={selectedDate}
                 onSelect={setSelectedDate}
-                disabled={(date) => date < new Date()}
+                disabled={(date) => startOfDay(date) < startOfDay(new Date())}
                 className="rounded-md border border-border"
               />
             </CardContent>
