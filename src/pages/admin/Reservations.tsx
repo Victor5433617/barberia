@@ -113,7 +113,7 @@ const Reservations = () => {
                           <TableCell className="font-medium text-sm">{reservation.client_name}</TableCell>
                           <TableCell className="text-sm">{reservation.client_phone || "-"}</TableCell>
                           <TableCell className="text-sm">
-                            {format(parseISO(reservation.reservation_date + 'T00:00:00'), "d 'de' MMM, yyyy", { locale: es })}
+                           {format(parseISO(reservation.reservation_date + 'T00:00:00'), "d 'de' MMM, yyyy", { locale: es })}
                           </TableCell>
                           <TableCell className="text-sm">{reservation.reservation_time}</TableCell>
                           <TableCell>
